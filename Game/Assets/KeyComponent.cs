@@ -12,10 +12,13 @@ public class KeyController : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Key"))
-        {
+        Debug.Log("first");
+        /*if (collision.gameObject.CompareTag("Lock"))
+        {*/
+            Debug.Log("sec");
             if (useTags)
             {
+                Debug.Log("3");
                 // Disable all objects with Door tag
                 GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
                 foreach (GameObject door in doors)
@@ -28,6 +31,12 @@ public class KeyController : MonoBehaviour
                 foreach (GameObject lockObj in locks)
                 {
                     lockObj.SetActive(false);
+                }
+
+                GameObject[] handles = GameObject.FindGameObjectsWithTag("Handle");
+                foreach (GameObject handle in handles)
+                {
+                    handle.SetActive(false);
                 }
             }
             else
@@ -49,5 +58,5 @@ public class KeyController : MonoBehaviour
             // Remove key
             Destroy(gameObject);
         }
-    }
+   // }
 }
