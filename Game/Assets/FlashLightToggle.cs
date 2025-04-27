@@ -10,6 +10,7 @@ public class FlashlightToggle : MonoBehaviour
 
     public XRNode inputSource = XRNode.RightHand; // or LeftHand
     private InputDevice device;
+    private bool previousButtonState = false; // track previous frame
 
     void Start()
     {
@@ -18,9 +19,22 @@ public class FlashlightToggle : MonoBehaviour
 
     void Update()
     {
-        if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonPressed) && primaryButtonPressed)
+        if (!device.isValid)
         {
-            ToggleFlashlight();
+            // Try to get device again if it's not valid
+            device = InputDevices.GetDeviceAtXRNode(inputSource);
+            return;
+        }
+
+        if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonPressed))
+        {
+            // Only toggle when button is pressed this frame (not held down)
+            if (primaryButtonPressed && !previousButtonState)
+            {
+                ToggleFlashlight();
+            }
+
+            previousButtonState = primaryButtonPressed;
         }
     }
 
@@ -28,7 +42,6 @@ public class FlashlightToggle : MonoBehaviour
     {
         isOn = !isOn;
         flashlightLight.enabled = isOn;
+        Debug.Log("Flashlight toggled: " + (isOn ? "ON" : "OFF"));
     }
 }
-
-
