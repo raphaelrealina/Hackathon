@@ -6,14 +6,12 @@ public class MineableCoal : MonoBehaviour
 {
     public int hitsToBreak = 3;
     private int currentHits = 0;
-    private void onTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Pickaxe"))
+        if (collision.gameObject.CompareTag("Pickaxe"))
         {
             currentHits++;
-
-            Debug.Log("Coat Hit! hits: " + currentHits);
-
+            Debug.Log("Coal Hit: hits:" + currentHits);
             if (currentHits >= hitsToBreak)
             {
                 Destroy(gameObject);
