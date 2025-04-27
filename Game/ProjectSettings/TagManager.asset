@@ -5,8 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Anchor
-  - Pickaxe
+
+  - Key
+  - Door
+  - Lock
   - Coal
+  - Pickaxe
+
   layers:
   - Default
   - TransparentFX
