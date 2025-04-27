@@ -1226,6 +1226,7 @@ MonoBehaviour:
   fireLight: {fileID: 312986332}
   growMultiplier: 1.5
   growDuration: 1
+  sustainDuration: 120
 --- !u!65 &878478315
 BoxCollider:
   m_ObjectHideFlags: 0
