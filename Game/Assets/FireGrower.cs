@@ -8,8 +8,9 @@ public class FireGrower : MonoBehaviour
     [SerializeField] private Light fireLight;
 
     [SerializeField] private float growMultiplier = 1.2f;
-    [SerializeField] private float growDuration = 1.0f;
-    [SerializeField] private float sustainDuration = 120f; // Fire stays bigger for 2 minutes
+    [SerializeField] private float growDuration = .10f;
+    [SerializeField] private float sustainDuration = .15f; // Fire stays bigger for 15 seconds
+    [SerializeField] private float shrinkDuration = .10f; // How long it takes to shrink back
 
     private bool isGrowing = false;
 
@@ -17,13 +18,13 @@ public class FireGrower : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fuel") && !isGrowing)
         {
-            Destroy(other.gameObject); // Destroy the thrown object, not the fire itself
-            StartCoroutine(GrowAndSustainFire());
+            Destroy(other.gameObject);
+            StartCoroutine(GrowSustainShrinkFire());
             Debug.Log("Fuel hit fire!");
         }
     }
 
-    private IEnumerator GrowAndSustainFire()
+    private IEnumerator GrowSustainShrinkFire()
     {
         isGrowing = true;
         Debug.Log("Growing fire...");
@@ -41,7 +42,7 @@ public class FireGrower : MonoBehaviour
 
         float elapsed = 0f;
 
-        // Grow the fire smoothly
+        // Grow phase
         while (elapsed < growDuration)
         {
             elapsed += Time.deltaTime;
@@ -57,20 +58,43 @@ public class FireGrower : MonoBehaviour
             yield return null;
         }
 
-        // Make sure it fully reaches target values
+        // Snap to target to make sure no drift
         fireTransform.localScale = targetScale;
-
         var finalMain = fireParticles.main;
         finalMain.startSizeMultiplier = targetSize;
-
         fireLight.intensity = targetIntensity;
 
         Debug.Log("Fire fully grown. Sustaining fire...");
 
-        // Sustain the bigger fire for 2 minutes
+        // Sustain phase
         yield return new WaitForSeconds(sustainDuration);
 
-        Debug.Log("Fire sustain ended.");
+        Debug.Log("Fire sustain ended. Shrinking fire...");
+
+        // Shrink phase
+        elapsed = 0f;
+        while (elapsed < shrinkDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / shrinkDuration;
+
+            fireTransform.localScale = Vector3.Lerp(targetScale, startScale, t);
+
+            var main = fireParticles.main;
+            main.startSizeMultiplier = Mathf.Lerp(targetSize, startSize, t);
+
+            fireLight.intensity = Mathf.Lerp(targetIntensity, startIntensity, t);
+
+            yield return null;
+        }
+
+        // Final snap back to original values
+        fireTransform.localScale = startScale;
+        var originalMain = fireParticles.main;
+        originalMain.startSizeMultiplier = startSize;
+        fireLight.intensity = startIntensity;
+
         isGrowing = false;
+        Debug.Log("Fire returned to normal size.");
     }
 }
