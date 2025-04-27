@@ -10,9 +10,9 @@ public class KeyController : MonoBehaviour
     public bool useTags = true; // Toggle between tag or manual assignment
     public GameObject[] specificDoors; // Manually assign if not using tags
     
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Key"))
         {
             if (useTags)
             {
