@@ -10,20 +10,21 @@ public class FireGrower : MonoBehaviour
     [SerializeField] private float growDuration = 1.0f;
 
     private bool isGrowing = false;
-
+   // private void OnCollisionEnter(Collision other)
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Coal") && !isGrowing)
+        if (other.gameObject.CompareTag("Fuel") && !isGrowing)
         {
             Destroy(other.gameObject);
             StartCoroutine(GrowFire());
+            Debug.Log("3");
         }
     }
 
     private System.Collections.IEnumerator GrowFire()
     {
         isGrowing = true;
-
+        Debug.Log("56");
         // Store starting values
         Vector3 startScale = fireTransform.localScale;
         Vector3 targetScale = startScale * growMultiplier;
@@ -36,9 +37,10 @@ public class FireGrower : MonoBehaviour
         float targetIntensity = startIntensity * growMultiplier;
 
         float elapsed = 0f;
-
+        Debug.Log("8=7");
         while (elapsed < growDuration)
         {
+            Debug.Log("1.8");
             elapsed += Time.deltaTime;
             float t = elapsed / growDuration;
 
@@ -49,7 +51,7 @@ public class FireGrower : MonoBehaviour
             main.startSizeMultiplier = Mathf.Lerp(startSize, targetSize, t);
 
             fireLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, t);
-
+            Debug.Log("8");
             yield return null;
         }
 
@@ -60,7 +62,8 @@ public class FireGrower : MonoBehaviour
         finalMain.startSizeMultiplier = targetSize;
 
         fireLight.intensity = targetIntensity;
-
+        Debug.Log("89");
         isGrowing = false;
+        Debug.Log("90");
     }
 }
