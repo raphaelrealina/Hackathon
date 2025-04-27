@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 216885672754563808, guid: 9a7807950894d41429dc2c1d999e3e94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 216885672754563808, guid: 9a7807950894d41429dc2c1d999e3e94, type: 3}
       propertyPath: m_LocalPosition.y
@@ -185,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 597106223415300186, guid: 9a7807950894d41429dc2c1d999e3e94, type: 3}
       propertyPath: m_Name
       value: ST_Stone5
+      objectReference: {fileID: 0}
+    - target: {fileID: 597106223415300186, guid: 9a7807950894d41429dc2c1d999e3e94, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 597106223415300186, guid: 9a7807950894d41429dc2c1d999e3e94, type: 3}
       propertyPath: m_TagString
@@ -243,6 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitsToBreak: 3
+  coalPickupPrefab: {fileID: 8342514819615154086, guid: 505b06cebe290a548acb4da8d949717e, type: 3}
+  numberOfDrops: 3
 --- !u!54 &184835520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -269,7 +275,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1001 &1156038890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -339,6 +345,10 @@ PrefabInstance:
       value: pickaxe
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6781d507b7513d2409ba56fd0489fa64, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6781d507b7513d2409ba56fd0489fa64, type: 3}
       propertyPath: m_TagString
       value: Pickaxe
       objectReference: {fileID: 0}
@@ -355,6 +365,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6781d507b7513d2409ba56fd0489fa64, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1156038892}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6781d507b7513d2409ba56fd0489fa64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1156038898}
   m_SourcePrefab: {fileID: 100100000, guid: 6781d507b7513d2409ba56fd0489fa64, type: 3}
 --- !u!1 &1156038891 stripped
 GameObject:
@@ -441,7 +454,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -529,10 +542,23 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
+--- !u!114 &1156038898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156038891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37efcc37074cea44bb9f11b7b932ef23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitsToBreak: 3
 --- !u!1001 &1191462006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,8 +960,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
+  m_UseGravity: 1
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
