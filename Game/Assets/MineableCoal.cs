@@ -6,15 +6,13 @@ public class MineableCoal : MonoBehaviour
 {
     public int hitsToBreak = 3;
     private int currentHits = 0;
-    // Start is called before the first frame update
-
-    private void onCollisionEnter(Collision collision)
+    private void onTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Pickaxe"))
+        if (other.CompareTag("Pickaxe"))
         {
             currentHits++;
 
-            Debug.Log("Coat hit! Hits: " + currentHits);
+            Debug.Log("Coat Hit! hits: " + currentHits);
 
             if (currentHits >= hitsToBreak)
             {
